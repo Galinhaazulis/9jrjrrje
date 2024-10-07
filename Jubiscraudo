@@ -1,0 +1,53 @@
+-- Interface de usuário móvel
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local CloseButton = Instance.new("TextButton")
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.new(1, 1, 1)
+Frame.Position = UDim2.new(0.5, -100, 0.5, -50)
+Frame.Size = UDim2.new(0, 200, 0, 100)
+Frame.Draggable = true
+
+CloseButton.Parent = Frame
+CloseButton.Size = UDim2.new(0, 100, 0, 50)
+CloseButton.Position = UDim2.new(0.5, -50, 0.5, -25)
+CloseButton.Text = "Fechar"
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+-- Função para fazer jogadores saírem do jogo
+local function kickPlayers()
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player.Name ~= game.Players.LocalPlayer.Name then
+            player:Kick("Você foi desconectado pelo dono do jogo.")
+        end
+    end
+end
+
+-- Botão para desconectar jogadores
+local KickButton = Instance.new("TextButton")
+KickButton.Parent = Frame
+KickButton.Size = UDim2.new(0, 100, 0, 50)
+KickButton.Position = UDim2.new(0.5, -50, 0.5, 25)
+KickButton.Text = "Desconectar Jogadores"
+KickButton.MouseButton1Click:Connect(kickPlayers)
+
+-- Mineração automática
+local function farmarSocio()
+    while true do
+        -- Código para encontrar e minerar o minério de sócio
+        -- Exemplo: 
+        -- local socio = game.Workspace:FindFirstChild("SocioMinerio")
+        -- if socio then
+        --     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = socio.CFrame
+        --     wait(1) -- Tempo para minerar
+        --     socio:Destroy()
+        -- end
+        wait(5) -- Intervalo entre as tentativas de mineração
+    end
+end
+
+spawn(farmarSocio)
